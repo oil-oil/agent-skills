@@ -91,7 +91,6 @@ Reference these guidelines when:
 - `rendering-svg-precision` - Reduce SVG coordinate precision
 - `rendering-hydration-no-flicker` - Use inline script for client-only data
 - `rendering-hydration-errors` - Common hydration error patterns and fixes
-- `rendering-hydration-suppress-warning` - Suppress expected mismatches
 - `rendering-use-client-directive` - Understanding 'use client' (not browser-only!)
 - `rendering-use-id` - Use useId() for stable hydration-safe identifiers
 - `rendering-activity` - Use Activity component for show/hide

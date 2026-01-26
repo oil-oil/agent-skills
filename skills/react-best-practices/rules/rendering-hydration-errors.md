@@ -200,6 +200,28 @@ function AuthButton() {
 }
 ```
 
+### 6. When to Use suppressHydrationWarning
+
+For **expected** mismatches that cannot be avoided (timestamps, locale formatting, random IDs), use `suppressHydrationWarning` to silence warnings. Do not use this to hide real bugs.
+
+**Appropriate use (timestamp that will always differ):**
+
+```tsx
+function Timestamp() {
+  return (
+    <span suppressHydrationWarning>
+      {new Date().toLocaleString()}
+    </span>
+  )
+}
+```
+
+**Rules for suppressHydrationWarning:**
+- Only use on leaf elements with known-safe mismatches
+- Never use on containers with many children
+- Never use to mask bugs you don't understand
+- Prefer fixing the root cause when possible
+
 ### Debugging Tips
 
 1. **Use React DevTools**: Enable "Highlight updates" to see unexpected re-renders

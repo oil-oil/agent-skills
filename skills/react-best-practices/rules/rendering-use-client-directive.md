@@ -13,6 +13,40 @@ tags: rendering, rsc, server-components, client-components, architecture
 
 **Reality**: Client Components still render on the server (SSR), then hydrate on the client. The directive marks the boundary between Server Components and Client Components, not between server and browser execution.
 
+**Incorrect (accessing window without guard):**
+
+```tsx
+'use client'
+
+function Sidebar() {
+  // WRONG: window is undefined during SSR
+  const width = window.innerWidth
+  return <nav style={{ width: width > 768 ? 250 : '100%' }}>...</nav>
+}
+```
+
+This crashes during server rendering because `window` doesn't exist on the server.
+
+**Correct (guard browser APIs with typeof check or useEffect):**
+
+```tsx
+'use client'
+
+function Sidebar() {
+  const [width, setWidth] = useState(0)
+
+  useEffect(() => {
+    // Safe: only runs in browser after hydration
+    setWidth(window.innerWidth)
+    const handleResize = () => setWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return <nav style={{ width: width > 768 ? 250 : '100%' }}>...</nav>
+}
+```
+
 **Incorrect (adding 'use client' to entire page):**
 
 ```tsx
@@ -102,19 +136,6 @@ function Timer() {
   }, [])
 
   return <div>{now?.toLocaleString() ?? 'Loading...'}</div>
-}
-```
-
-### Understanding 'use server'
-
-`'use server'` marks functions as **Server Actions** - functions that execute on the server but can be called from the client:
-
-```tsx
-'use server'
-
-export async function submitForm(formData: FormData) {
-  // This runs on the server, even when called from a client component
-  await db.forms.create({ data: Object.fromEntries(formData) })
 }
 ```
 
