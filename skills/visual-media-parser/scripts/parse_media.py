@@ -314,7 +314,7 @@ def parse_args():
     p.add_argument("-o", "--output", default="", help="Output file path.")
     p.add_argument("--max-upload-mb", type=int, default=45, help="Max video upload size in MB.")
     p.add_argument("--base-url", default=os.getenv("ZENMUX_BASE_URL", "https://zenmux.ai/api/v1"))
-    p.add_argument("--model", default=os.getenv("ZENMUX_MODEL", "google/gemini-2.5-flash"))
+    p.add_argument("--model", default=os.getenv("ZENMUX_MODEL", "google/gemini-3-flash-preview"))
     return p.parse_args()
 
 

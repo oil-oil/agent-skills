@@ -1,7 +1,7 @@
 ---
 name: visual-media-parser
 description: >
-  Let AI see images and videos by converting them to text via ZenMux API (google/gemini-2.5-flash).
+  Let AI see images and videos by converting them to text via ZenMux API (google/gemini-3-flash-preview).
   Accepts local files OR URLs (image links, video links, webpages containing video).
   Supported formats: .png/.jpg/.jpeg/.webp/.gif/.mp4/.mov/.mkv/.webm and any URL.
   Use when asked to view, describe, analyze, or extract info from any image or video content.
@@ -78,7 +78,7 @@ On success, prints `output_path=<path>` to stdout. Read that file for the analys
 | positional args | Any file path or URL | |
 | `-o` | Output file path | `.runtime/visual-media-parser/<timestamp>.md` |
 | `--max-upload-mb` | Max video size before auto-compress | 45 |
-| `--model` | Model override | `google/gemini-2.5-flash` |
+| `--model` | Model override | `google/gemini-3-flash-preview` |
 
 ## Dependencies
 
