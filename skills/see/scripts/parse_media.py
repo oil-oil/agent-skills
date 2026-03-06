@@ -46,7 +46,7 @@ def resolve_api_key() -> str:
         found = _read_env_value(d / ".env.local", "ZENMUX_API_KEY")
         if found:
             return found
-    gf = Path.home() / ".config" / "visual-media-parser" / "api_key"
+    gf = Path.home() / ".config" / "see" / "api_key"
     if gf.is_file():
         val = gf.read_text(encoding="utf-8", errors="ignore").strip()
         if val:
@@ -74,7 +74,7 @@ def _guess_media_type(url: str) -> str:
 
 
 def _download_file(url: str, dest: Path, timeout: int = 120) -> None:
-    req = request.Request(url, headers={"User-Agent": "visual-media-parser/1.0"})
+    req = request.Request(url, headers={"User-Agent": "see/1.0"})
     with request.urlopen(req, timeout=timeout) as resp:
         dest.write_bytes(resp.read())
 
@@ -323,7 +323,7 @@ def main() -> int:
         args = parse_args()
         api_key = resolve_api_key()
         if not api_key:
-            print("[ERROR] No ZENMUX_API_KEY found. Set it as env var, in .env.local, or in ~/.config/visual-media-parser/api_key", file=sys.stderr)
+            print("[ERROR] No ZENMUX_API_KEY found. Set it as env var, in .env.local, or in ~/.config/see/api_key", file=sys.stderr)
             return 1
 
         tmp_dir = Path(tempfile.mkdtemp(prefix="vmp-"))
@@ -362,7 +362,7 @@ def main() -> int:
             out_path = Path(args.output).expanduser().resolve()
         else:
             ts = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-            rt = Path.cwd() / ".runtime" / "visual-media-parser"
+            rt = Path.cwd() / ".runtime" / "see"
             rt.mkdir(parents=True, exist_ok=True)
             out_path = rt / f"{ts}.md"
         out_path.parent.mkdir(parents=True, exist_ok=True)

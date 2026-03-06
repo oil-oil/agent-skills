@@ -1,5 +1,5 @@
 ---
-name: visual-media-parser
+name: see
 description: >
   Let AI see images and videos by converting them to text via ZenMux API (google/gemini-3-flash-preview).
   Accepts local files OR URLs (image links, video links, webpages containing video).
